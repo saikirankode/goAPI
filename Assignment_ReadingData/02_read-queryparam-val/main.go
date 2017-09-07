@@ -32,6 +32,7 @@ func ReadURIParameter(res http.ResponseWriter, req *http.Request) {
 }
 
 func ReadQueryParameter(res http.ResponseWriter, req *http.Request) {
+	fmt.Println("reading Query parameter")
 	var dog dogs
 	fmt.Println("Raw Query", req.URL.RawQuery) //Query parses RawQuery and returns the corresponding values
 	QueryParam, err := url.ParseQuery(req.URL.RawQuery)

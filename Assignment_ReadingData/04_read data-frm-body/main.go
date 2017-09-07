@@ -39,14 +39,15 @@ func main() {
 
 }*/
 func ReadDataFrmBody(res http.ResponseWriter, req *http.Request) {
+	fmt.Println("reading from body")
 
 	dogcolor := req.Body
 
-	d,err := ioutil.ReadAll(dogcolor)
+	d, err := ioutil.ReadAll(dogcolor)
 	if err != nil {
 		http.Error(res, err.Error(), http.StatusBadRequest)
 	}
-    e := string(d)
+	e := string(d)
 	fmt.Fprintln(res, "DogColor=", e)
 
 }

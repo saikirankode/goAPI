@@ -20,6 +20,7 @@ func main() {
 }
 
 func ReadMulQueryParam(res http.ResponseWriter, req *http.Request) {
+	fmt.Println("reading multiple Query parameter")
 	var dog dogs
 	fmt.Println("Raw Query", req.URL.RawQuery)
 	QueryParam, err := url.ParseQuery(req.URL.RawQuery)

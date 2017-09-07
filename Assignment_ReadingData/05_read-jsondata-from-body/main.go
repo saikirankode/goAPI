@@ -48,6 +48,7 @@ func ReadDataFrmBody(res http.ResponseWriter, req *http.Request) {
 }
 
 func ReadDataFrmHeader(res http.ResponseWriter, req *http.Request) {
+	fmt.Println("reading from header")
 	var dog dogs
 	color := req.Header.Get("Color")
 	breed := req.Header.Get("Breed")

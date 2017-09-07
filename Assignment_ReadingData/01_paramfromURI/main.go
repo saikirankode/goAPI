@@ -15,7 +15,7 @@ func main() {
 
 func handleDogs(res http.ResponseWriter, req *http.Request) {
 
-	fmt.Println("reading parameter from URI")
+	fmt.Println("reading parameter from URI !")
 
 	vars := mux.Vars(req)
 	idkey := vars["idkey"]
