@@ -5,24 +5,32 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"net/url"
 )
 
+type dogs struct {
+	Color string `json:"color"`
+	Breed string `json:"breed"`
+}
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/dogs/{key}/{var1}", handleDogs).Methods("GET")
-	http.ListenAndServe(":10000", router)
+	router.HandleFunc("/dogs", ReadMulQueryParam).Methods("GET") //read multiple query parameters
+	log.Fatal(http.ListenAndServe(":8087", router))
 }
 
-func handleDogs(res http.ResponseWriter, req *http.Request) {
-
-	log.Println("reading parameter from URI")
-
-	vars := mux.Vars(req)
-	key := vars["key"]
-	var1 := vars["var1"]
-
-	res.WriteHeader(http.StatusOK)
-	fmt.Fprintln(res, "dog id :", key, var1)
+func ReadMulQueryParam(res http.ResponseWriter, req *http.Request) {
+	var dog dogs
+	fmt.Println("Raw Query", req.URL.RawQuery)
+	QueryParam, err := url.ParseQuery(req.URL.RawQuery)
+	fmt.Println(QueryParam)
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusBadRequest)
+		return
+	}
+	dog.Color = QueryParam["color"][0]
+	dog.Breed = QueryParam["breed"][0]
+	fmt.Fprintln(res, "Color=", dog.Color)
+	fmt.Fprintln(res, "Breed=", dog.Breed)
 
 }
